@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicativo Espa Solidário</title>
+    <style>
+        /* Estilos */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+      
+/* Logo do App */
+        .app-logo {
+            width: 120px; /* Alterar esse valor para deixar a logo maior ou menor */
+            height: auto;
+            margin: 40px auto;
+            display: block;
+        }
+      
+        #app-container {
+            width: 360px;
+            height: 640px;
+            background-color: #0d0d0d;
+            color: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .screen {
+            display: none;
+            padding: 30px;
+            height: 100%;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        .screen.active {
+            display: flex;
+        }
+
+      /* Estrutura dos Produtos com Imagem */
+        .product-item {
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Define o espaço negativo exato entre a foto e o texto */
+        }
+        .product-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+            background-color: #ffffff; /* Fundo branco caso a imagem seja transparente */
+        }
+        .product-info {
+            flex: 1; /* Para o bloco de texto preencher o restante da tela */
+            display: flex;
+            flex-direction: column;
+        }
+        /* Ajuste dos espaçamentos internos do texto */
+        .product-info p { margin-bottom: 5px; }
+        .product-info .price { margin: 0 0 10px 0; }
+        .product-info .btn-small { width: 100%; text-align: center; }
+
+      /* Caixa de Aviso de Novas ONGs */
+        .notice-box {
+            text-align: center;
+            padding: 25px 15px;
+            margin-top: 15px;
+            border: 1px dashed #333;
+            border-radius: 10px;
+            background-color: transparent;
+        }
+        .notice-box p {
+            margin-bottom: 0;
+            color: #81c784;
+            font-size: 13px;
+        }
+
+/* Estrutura da imagem da ONG */
+        .ong-item {
+            display: flex;
+            align-items: center;
+            gap: 20px; 
+        }
+        .ong-logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%; /* Deixa a imagem perfeitamente redonda */
+            object-fit: cover;
+            background-color: #ffffff;
+            flex-shrink: 0; /* Impede que a logo encolha se o texto for muito grande */
+        }
+        .ong-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+      
+        /* Tipografia */
+        h1, h2 { text-align: center; margin-bottom: 30px; font-weight: 500; }
+        h3 { font-size: 16px; margin-bottom: 5px; color: #a5d6a7; }
+        p { font-size: 12px; color: #cccccc; margin-bottom: 15px; line-height: 1.4; }
+
+        /* Botões e Inputs */
+        input {
+            width: 100%; padding: 15px; margin-bottom: 15px;
+            border-radius: 10px; border: none;
+            background-color: #e8f5e9; color: #333; outline: none;
+        }
+        .btn {
+            width: 100%; padding: 15px; border-radius: 10px;
+            border: none; background-color: #81c784; color: #000;
+            font-weight: bold; font-size: 16px; cursor: pointer;
+            transition: background 0.3s; margin-bottom: 15px;
+        }
+        .btn:hover { background-color: #66bb6a; }
+        .btn-small { padding: 8px 15px; font-size: 14px; width: auto; display: inline-block; }
+        .btn-whatsapp { background-color: #25D366; color: white; } 
+        .btn-whatsapp:hover { background-color: #128C7E; }
+        
+        .link { text-align: center; color: #81c784; font-size: 12px; cursor: pointer; margin-top: 10px; }
+
+        /* Listas */
+        .list-item { margin-bottom: 25px; border-bottom: 1px solid #333; padding-bottom: 15px; }
+        .price { font-weight: bold; font-size: 14px; margin: 10px 0; display: block; }
+        
+        /* Cabeçalho */
+        .header { display: flex; align-items: center; margin-bottom: 20px; }
+        .back-btn { background: none; border: none; color: #81c784; font-size: 24px; cursor: pointer; margin-right: 15px; }
+    </style>
+</head>
+<body>
+
+<div id="app-container">
+
+    <!-- TELA DE LOGIN -->
+    <div id="screen-login" class="screen active">
+<img src="https://i.postimg.cc/j2TJTwyz/Patinha.png" alt="Logo Aplicativo Solidário" class="app-logo">
+        <input type="email" placeholder="E-mail" id="login-email">
+        <input type="password" placeholder="Senha" id="login-password">
+        <button class="btn" onclick="navigate('screen-menu')">Entrar</button>
+        
+        <div class="link" onclick="navigate('screen-register')">ou criar uma conta</div>
+    </div>
+
+    <!-- TELA DE CADASTRO -->
+    <div id="screen-register" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="navigate('screen-login')">←</button>
+            <h2>Criar Conta</h2>
+        </div>
+        
+        <input type="text" placeholder="Nome Completo" id="reg-name">
+        <input type="email" placeholder="E-mail" id="reg-email">
+        <input type="password" placeholder="Crie uma Senha" id="reg-password">
+        <input type="password" placeholder="Confirme a Senha" id="reg-confirm">
+        
+        <!-- Para executar a função de cadastro no JavaScript -->
+        <button class="btn" onclick="cadastrar()">Cadastrar</button>
+    </div>
+
+    <!-- TELA MENU PRINCIPAL -->
+    <div id="screen-menu" class="screen">
+    <img src="https://i.postimg.cc/j2TJTwyz/Patinha.png" alt="Logo Aplicativo Solidário" class="app-logo">
+        <div style="display: flex; flex-direction: column; margin-top: 8px;">
+            <button class="btn" onclick="navigate('screen-ongs')">Faça uma doação</button>
+            <button class="btn" onclick="alert('Módulo de dicas em desenvolvimento.')">Dicas pet</button>
+            <button class="btn" onclick="alert('Sobre nós em desenvolvimento.')">Sobre nós</button>
+        </div>
+    </div>
+
+    <!-- TELA ESCOLHA UMA ONG -->
+    <div id="screen-ongs" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="navigate('screen-menu')">←</button>
+            <h2>Escolha uma ONG</h2>
+        </div>
+        
+        <!-- ONG Adote um Amigo -->
+        <div class="list-item ong-item">
+            <img src="https://i.postimg.cc/JnRtswYf/exemplo.png" alt="Logo Adote um Amigo" class="ong-logo">
+            
+            <div class="ong-info">
+                <h3>Adote um amigo</h3>
+                <p>ONG sem fins lucrativos que atua no resgate e adoção de animais abandonados...</p>
+                <button class="btn btn-small" onclick="navigate('screen-cart')">Apoiar</button>
+            </div>
+        </div>
+        
+        <!-- Outras ONGs omitidas pois não possuem vínculo -->
+      <div class="notice-box">
+            <p>Mais ONGs parceiras estarão disponíveis em breve. Fique de olho! 🐶🐈</p>
+        </div>
+        
+    </div>
+      
+    </div>
+
+    <!-- TELA MONTE SUA CESTA -->
+    <div id="screen-cart" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="navigate('screen-ongs')">←</button>
+            <h2>Monte sua cesta</h2>
+        </div>
+
+        <div class="list-item product-item">
+            <!-- link da imagem no Postimages -->
+            <img src="https://i.postimg.cc/nr5KJcVw/image.png" alt="Antibiótico Doxitec" class="product-img">
+            
+            <div class="product-info">
+                <p>Antibiótico Doxitec Syntec 100mg - 16 Comprimidos</p>
+                <span class="price">R$ 59,99</span>
+                <button class="btn btn-small btn-whatsapp" onclick="doarViaWhatsApp('Antibiótico Doxitec', 'R$ 44,40')">Doar via WhatsApp</button>
+            </div>
+        </div>
+
+        <div class="list-item product-item">
+            <!-- link da imagem no Postimages -->
+            <img src="https://i.postimg.cc/SK3zRtbj/image.png" alt="Ração GranPlus" class="product-img">
+            
+            <div class="product-info">
+                <p>Ração GranPlus Gourmet para Cães Adultos de Médio e Grande Porte Sabor Ovelha e Arroz</p>
+                <span class="price">R$ 67,90</span>
+                <button class="btn btn-small btn-whatsapp" onclick="doarViaWhatsApp('Ração GranPlus', 'R$ 44,40')">Doar via WhatsApp</button>
+            </div>
+        </div>
+
+        <div class="list-item product-item">
+            <!-- link da imagem no Postimages -->
+            <img src="https://i.postimg.cc/YSWCnrTK/image.png" alt="Areia Pipicat" class="product-img">
+            
+            <div class="product-info">
+                <p>Areia Higiênica Pipicat Classic para Gatos</p>
+                <span class="price">R$ 44,40</span>
+                <button class="btn btn-small btn-whatsapp" onclick="doarViaWhatsApp('Areia Pipicat', 'R$ 44,19')">Doar via WhatsApp</button>
+            </div>
+        </div>
+
+</div>
+
+<script>
+    // Navegação entre as telas
+    function navigate(targetScreenId) {
+        const screens = document.querySelectorAll('.screen');
+        screens.forEach(screen => {
+            screen.classList.remove('active');
+        });
+        const targetScreen = document.getElementById(targetScreenId);
+        if (targetScreen) {
+            targetScreen.classList.add('active');
+        }
+    }
+
+    // Função para o cadastro e liberar o acesso
+    function cadastrar() {
+        alert('Conta criada com sucesso! Bem-vindo(a) ao Espaço Solidário. 🐈🐶');
+        // Após o cadastro, navega direto para o menu principal
+        navigate('screen-menu');
+    }
+
+    // INTEGRAÇÃO COM O WHATSAPP 
+    function doarViaWhatsApp(produto, preco) {
+        // Número Ficticio da ONG com DDD 92. No projeto real, irei colocar o número da ONG aqui.
+        const telefoneONG = "5592900000000"; 
+        
+        // O texto da mensagem
+        const texto = `Olá! Estou acessando o Aplicativo Espaço Solidário 🐾 e gostaria de doar o valor de ${preco} referente a 1x unidade de "${produto}" via Pix. Como posso proceder?`;
+        
+        // Convertendo o texto para o formato de URL
+        const textoCodificado = encodeURIComponent(texto);
+        
+        // Gerando o link direto da API do WhatsApp
+        const urlWhatsApp = `https://wa.me/${telefoneONG}?text=${textoCodificado}`;
+        
+        // Abrindo o aplicativo do WhatsApp
+        window.open(urlWhatsApp, '_blank');
+    }
+</script>
+
+</body>
+</html>
