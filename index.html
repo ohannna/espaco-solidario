@@ -208,21 +208,29 @@
     </div>
       
 
-    <!-- TELA MONTE SUA CESTA -->
+    <!-- TELA DE PRODUTOS -->
     <div id="screen-cart" class="screen">
         <div class="header">
             <button class="back-btn" onclick="navigate('screen-ongs')">←</button>
-            <h2>Monte sua cesta</h2>
+            <h2>Selecione o produto</h2>
         </div>
 
+        <div class="list-item product-item">
+            <!-- link da imagem no Postimages -->
+            <img src="https://i.postimg.cc/PNnH1DzL/257893-1.webp" class="product-img">
+            <div class="product-info">
+                <p>Areia Sanitária Edukat da Alfa Pet 4 Kg</p>
+                <button class="btn btn-small btn-whatsapp" onclick="doarViaWhatsApp('Ração GranPlus')">Doar via WhatsApp</button>
+            </div>
+        </div>
+        
         <div class="list-item product-item">
             <!-- link da imagem no Postimages -->
             <img src="https://i.postimg.cc/nr5KJcVw/image.png" alt="Antibiótico Doxitec" class="product-img">
             
             <div class="product-info">
                 <p>Antibiótico Doxitec Syntec 100mg - 16 Comprimidos</p>
-                <span class="price">R$ 59,99</span>
-                <button class="btn btn-small btn-whatsapp" onclick="doarViaWhatsApp('Antibiótico Doxitec', 'R$ 44,40')">Doar via WhatsApp</button>
+                <button class="btn btn-small btn-whatsapp" onclick="doarViaWhatsApp('Antibiótico Doxitec')">Doar via WhatsApp</button>
             </div>
         </div>
 
@@ -232,8 +240,7 @@
             
             <div class="product-info">
                 <p>Ração GranPlus Gourmet para Cães Adultos de Médio e Grande Porte Sabor Ovelha e Arroz</p>
-                <span class="price">R$ 67,90</span>
-                <button class="btn btn-small btn-whatsapp" onclick="doarViaWhatsApp('Ração GranPlus', 'R$ 44,40')">Doar via WhatsApp</button>
+                <button class="btn btn-small btn-whatsapp" onclick="doarViaWhatsApp('Ração GranPlus')">Doar via WhatsApp</button>
             </div>
         </div>
 
@@ -243,8 +250,7 @@
             
             <div class="product-info">
                 <p>Areia Higiênica Pipicat Classic para Gatos</p>
-                <span class="price">R$ 44,40</span>
-                <button class="btn btn-small btn-whatsapp" onclick="doarViaWhatsApp('Areia Pipicat', 'R$ 44,19')">Doar via WhatsApp</button>
+                <button class="btn btn-small btn-whatsapp" onclick="doarViaWhatsApp('Areia Pipicat')">Doar via WhatsApp</button>
             </div>
         </div>
 
@@ -272,11 +278,11 @@
 
     // INTEGRAÇÃO COM O WHATSAPP 
     function doarViaWhatsApp(produto, preco) {
-        // Número Ficticio da ONG com DDD 92. No projeto real, irei colocar o número da ONG aqui.
+        // Número da ONG Anjos de Rua
         const telefoneONG = "92991363600"; 
         
         // O texto da mensagem
-        const texto = `Olá! Estou acessando o Aplicativo Espaço Solidário 🐾 e gostaria de doar o valor de ${preco} referente a 1x unidade de "${produto}" via Pix. Como posso proceder?`;
+        const texto = `Olá! Estou acessando o Aplicativo Espaço Solidário 🐾 e gostaria de fazer uma doação para ajudar com 1x unidade de "${produto}". Como posso proceder?`;
         
         // Convertendo o texto para o formato de URL
         const textoCodificado = encodeURIComponent(texto);
